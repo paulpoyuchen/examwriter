@@ -3,7 +3,7 @@
 class SessionsController < ApplicationController
 
   def create
-      
+
 
       user = User.find_by_email(params[:email])
       # If the user exists AND the password entered is correct.
@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
 
     def destroy
       session[:user_id] = nil
-      redirect_to users_path
+      redirect_to exams_path
     end
 
 end

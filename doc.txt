@@ -1,0 +1,67 @@
+Development Tool and environment
+Terminal, Atom text editor
+
+
+Testing Tool
+Inspection to observe behavior of html form
+binding.pry gem to set up breaks and check params before passed through
+Use rails console to manually insert an admin user
+Create student and teacher user to check behaviors and permissions
+
+Functionality 1
+Goal1: Add basic user roles into the application
+Goal2: add basic permissions to each user roles
+
+Set up environment
+rvm ruby 2.0.0
+Install postgresql
+
+Rails generate model user
+
+Setup routes for login and signup config/routes.rb
+Add in basic new and create method for sign up functionalities in controlleres/user_controller.rb
+Create new.haml for signup forms
+
+Update user table (add in password attributes)
+
+Table User
+	Name String
+	Email String
+	Password String
+Type String
+
+
+Update Type input from text_field to three button input (student, admin, teacher)
+
+validation  on null inputs( name, email
+Password confirmation
+
+Login functionality
+With session controller (controllers/sessions_controllers.rb
+Implemented current_user method in application_controller.rb
+Update current logged in user layout
+
+Update table with new role attributes
+- @role = (User.where(:id=>session[:user_id]).select(:role).take.role if session[:user_id])
+To fetch current roles
+
+Hide functionality base on roles
+Admin => can do everything
+Teacher => can do everything except Create users
+Student => can only look at content of question and exam but not exam key
+
+
+Functionality 5
+Goal1: implemented new question type to create
+Goal2: user will be able to add new question type to exam
+
+Implemented a mock new question type hi_question
+Implemented extra radio button in views/questions/_form.html.haml
+Update javascript hidden logic in assets/javascript/
+
+Implement extra form field for different question type
+
+Update attributes for question table
+For new answer fields
+
+Update _question.html.haml to display proper content for each question type

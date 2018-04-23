@@ -19,3 +19,29 @@
       %li
         D.
         = question.option_d
+    - elsif question.matching_question?
+      %li
+        A.
+        = question.moption_a
+      %li
+        B.
+        = question.moption_b
+      %li
+        C.
+        = question.moption_c
+      %li
+        D.
+        = question.moption_d
+      %br/
+      %li
+        Choice A:
+        = question.choicea
+      %li
+        Choice B:
+        = question.choiceb
+      %li
+        Choice C:
+        = question.choicec
+      %li
+        Choice D:
+        = question.choiced

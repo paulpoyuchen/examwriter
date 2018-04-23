@@ -9,6 +9,16 @@
       - @exam.questions.each do |question|
         %li.exam-item
           = question.prompt
-          %br/
+          %br
           %strong Answer:
-          = question.answer
+          -if question.type == "TrueFalseQuestion"
+            = question.answertf
+          -if question.type == "MultipleChoiceQuestion"
+            = question.answerm
+          -if question.type == "ShortAnswer"
+            = question.answer
+          -if question.type == "MatchingQuestion"
+            = question.answera
+            = question.answerb
+            = question.answerc
+            = question.answerd

@@ -2,20 +2,25 @@
 %html
   %head
     %title Exam Writer
-    
+
     %meta{charset: "utf-8"}/
     %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}/
 
     %link{rel: "stylesheet", href: "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"}
 
     = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
-    
+
     = csrf_meta_tags
-  %body
+    %body
+      - if current_user
+        Signed in as #{current_user.name} | #{link_to "Logout", '/logout'} | #{link_to 'Create Users', users_path}
+      - else
+        = link_to 'Login', sessions_path
+      
     = render partial: "shared/header"
 
     = render partial: "shared/flash", locals: { flash: flash }
-    
+
     = yield
 
     = render partial: "shared/footer"

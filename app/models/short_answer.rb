@@ -1,11 +1,11 @@
-class TrueFalseQuestion < Question
+class ShortAnswer < Question
   #validates :answer, inclusion: { in: %w(T F), message: "must be T/F" }
 
   def self.kind
-    "True/False"
+    "Short Answer"
   end
 
-  def true_false?
+  def short_answer?
     true
   end
 end

@@ -5,12 +5,24 @@
     = f.label :prompt
     = f.text_field :prompt, class: "form-control", placeholder: "Prompt"
   .form-group{class: ("has-error" if resource.errors[:type].present?)}
-    - [MultipleChoiceQuestion, TrueFalseQuestion].each do |klass|
+    - [MultipleChoiceQuestion, TrueFalseQuestion, MatchingQuestion, ShortAnswer].each do |klass|
       %label.radio-inline
         = f.radio_button :type, klass.to_s, disabled: hide_types
         = klass.to_s.titleize
 
-  .multiple-choice{class: ("hidden" unless resource.multiple_choice?)}
+  .true-false{class: ("hidden" unless resource.true_false?)}
+    = f.label :answer
+    = f.select :answertf,                                                     |
+      options_for_select([['True','True'],['False','False']], params[:answertf]), |
+      {}, { :class => 'span3 controls controls-row' }                     |
+
+
+  .short-answer{class: ("hidden" unless resource.short_answer?)}
+    .form-group{class: ("has-error" if resource.errors[:answer].present?)}
+      = f.label :answer
+      = f.text_field :answer, class: "form-control", placeholder: "Answer"
+
+  .multiple-choice{class: ("hidden" unless resource.multiple_choice? || resource.matching_question?)}
     .form-group{class: ("has-error" if resource.errors[:option_a].present?)}
       = f.label :option_a, "Option A"
       = f.text_field :option_a, class: "form-control"
@@ -23,11 +35,57 @@
     .form-group{class: ("has-error" if resource.errors[:option_d].present?)}
       = f.label :option_d, "Option D"
       = f.text_field :option_d, class: "form-control"
+      = f.label :answer
+      %br/
+    = f.select :answerm,                                                     |
+      options_for_select([['A','A'],['B','B'],['C','C'],['D','D']], params[:answerm]), |
+      {}, { :class => 'span3 controls controls-row' }
 
+  .matching_question{class: ("hidden" unless resource.matching_question?)}
+    .form-group{class: ("has-error" if resource.errors[:moption_a].present?)}
+      = f.label :moption_a, "Option A"
+      = f.text_field :moption_a, class: "form-control"
+    .form-group{class: ("has-error" if resource.errors[:moption_b].present?)}
+      = f.label :moption_b, "Option B"
+      = f.text_field :moption_b, class: "form-control"
+    .form-group{class: ("has-error" if resource.errors[:moption_c].present?)}
+      = f.label :moption_c, "Option C"
+      = f.text_field :moption_c, class: "form-control"
+    .form-group{class: ("has-error" if resource.errors[:moption_d].present?)}
+      = f.label :moption_d, "Option D"
+      = f.text_field :moption_d, class: "form-control"
 
-  .form-group{class: ("has-error" if resource.errors[:answer].present?)}
-    = f.label :answer
-    = f.text_field :answer, class: "form-control", placeholder: "Answer"
+    .form-group{class: ("has-error" if resource.errors[:option_a].present?)}
+      = f.label :choicea, "A"
+      = f.text_field :choicea, class: "form-control"
+    .form-group{class: ("has-error" if resource.errors[:option_b].present?)}
+      = f.label :choiceb, "B"
+      = f.text_field :choiceb, class: "form-control"
+    .form-group{class: ("has-error" if resource.errors[:option_c].present?)}
+      = f.label :choicec, "C"
+      = f.text_field :choicec, class: "form-control"
+    .form-group{class: ("has-error" if resource.errors[:option_d].present?)}
+      = f.label :choiced, "D"
+      = f.text_field :choiced, class: "form-control"
+
+    = f.label :option_1
+    = f.select :answera,                                                     |
+      options_for_select([['A','A'],['B','B'],['C','C'],['D','D']], params[:answera]), |
+      {}, { :class => 'span3 controls controls-row' }
+    = f.label :option_2
+    = f.select :answerb,                                                     |
+      options_for_select([['A','A'],['B','B'],['C','C'],['D','D']], params[:answerb]), |
+      {}, { :class => 'span3 controls controls-row' }
+    = f.label :option_3
+    = f.select :answerc,                                                     |
+      options_for_select([['A','A'],['B','B'],['C','C'],['D','D']], params[:answerd]), |
+      {}, { :class => 'span3 controls controls-row' }
+    = f.label :option_4
+    = f.select :answerd,                                                     |
+      options_for_select([['A','A'],['B','B'],['C','C'],['D','D']], params[:answerd]), |
+      {}, { :class => 'span3 controls controls-row' }
+
+  %br/
 
   = f.submit "Save", class: %w(btn btn-primary btn-md)
   = link_to "Cancel", :back, class: %w(btn btn-link btn-md)

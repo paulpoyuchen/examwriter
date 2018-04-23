@@ -1,13 +1,14 @@
 class Question < ActiveRecord::Base
   validates :prompt, presence: true
 
-  validates :type, inclusion: { in: %w(MultipleChoiceQuestion TrueFalseQuestion), message: "must be either multiple choice or true/false" }
+  validates :type, inclusion: { in: %w(MultipleChoiceQuestion TrueFalseQuestion MatchingQuestion ShortAnswer), message: "must be either multiple choice or true/false" }
 
   belongs_to :exam
+  
 
   def self.new_by_type(attributes)
     type = attributes.delete(:type)
-    klass = if %w(MultipleChoiceQuestion TrueFalseQuestion).include?(type)
+    klass = if %w(MultipleChoiceQuestion TrueFalseQuestion MatchingQuestion ShortAnswer).include?(type)
       type.constantize
     else
       Question
@@ -28,6 +29,14 @@ class Question < ActiveRecord::Base
   end
 
   def multiple_choice?
+    false
+  end
+
+  def matching_question?
+    false
+  end
+
+  def short_answer?
     false
   end
 end

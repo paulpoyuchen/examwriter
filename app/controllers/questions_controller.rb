@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    binding.pry
+    
     @question = Question.new_by_type(question_params)
     if @question.save
       flash[:success] = "Question created"

@@ -2,18 +2,35 @@ Development Tool and environment
 Terminal, Atom text editor
 
 
-Testing Tool
+------------Testing Tool------------------
 Inspection to observe behavior of html form
 binding.pry gem to set up breaks and check params before passed through
 Use rails console to manually insert an admin user
 Create student and teacher user to check behaviors and permissions
 
-Functionality 1
+------------Useful Commands or Infos--------------
+rails console for checking data in postgresql
+binding.pry to set stop code and observe behavior of code
+
+to create new Table
+rails generate model table_name
+
+to add new column to existing table
+rails generate migration add_attributename_to_tablename attributename:type
+Then do a rake db:migrate and it'll run the new migration.
+
+config/routes.rb contains all information regarding routing
+layout/application.html.haml shares the layout with rest of the application and render all the shared/* haml infos
+
+controllers/application_controller.rb defines the method and logic for current_user
+controllers/sessions_controller.rb =>login functionality
+
+------------Functionality 1---------------
 Goal1: Add basic user roles into the application
 Goal2: add basic permissions to each user roles
 
 Set up environment
-rvm ruby 2.0.0
+set ruby=> 2.0.0
 Install postgresql
 
 Rails generate model user
@@ -37,6 +54,7 @@ validation  on null inputs( name, email
 Password confirmation
 
 Login functionality
+authenticate email and password with existing user email and password
 With session controller (controllers/sessions_controllers.rb
 Implemented current_user method in application_controller.rb
 Update current logged in user layout
@@ -51,7 +69,7 @@ Teacher => can do everything except Create users
 Student => can only look at content of question and exam but not exam key
 
 
-Functionality 5
+--------------Functionality 5-------------------
 Goal1: implemented new question type to create
 Goal2: user will be able to add new question type to exam
 

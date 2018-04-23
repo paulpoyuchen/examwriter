@@ -9,6 +9,7 @@ Use rails console to manually insert an admin user
 Create student and teacher user to check behaviors and permissions
 
 ------------Useful Commands or Infos--------------
+grep -rl "keyword" to search for keyword and understand code
 rails console for checking data in postgresql
 binding.pry to set stop code and observe behavior of code
 
@@ -83,3 +84,10 @@ Update attributes for question table
 For new answer fields
 
 Update _question.html.haml to display proper content for each question type
+
+------------Functionality 6----------------------
+Goal1: implement a search text_field that helps filter questions
+Goal2: implement a dropdown optino bar that help filter questions base on question type
+
+----Approach---
+implement text_field form then pattern match and fetch desired data

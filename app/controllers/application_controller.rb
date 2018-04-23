@@ -8,6 +8,15 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  def admin_user
+    if (User.where(:id=>session[:user_id]).select(:role).take.role if session[:user_id]) == "admin"
+      true
+    else
+      false
+    end
+  end
+  helper_method :admin_user
+
   def authorize
     redirect_to '/login' unless current_user
   end

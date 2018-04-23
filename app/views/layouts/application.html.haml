@@ -13,10 +13,13 @@
     = csrf_meta_tags
     %body
       - if current_user
-        Signed in as #{current_user.name} | #{link_to "Logout", '/logout'} | #{link_to 'Create Users', users_path}
-      - else
+        Signed in as #{current_user.name} | #{link_to "Logout", '/logout'}
+      - @role = (User.where(:id=>session[:user_id]).select(:role).take.role if session[:user_id])
+      - if @role == "admin" 
+        #{link_to 'Create Users', users_path}
+      - if !current_user
         = link_to 'Login', sessions_path
-      
+
     = render partial: "shared/header"
 
     = render partial: "shared/flash", locals: { flash: flash }

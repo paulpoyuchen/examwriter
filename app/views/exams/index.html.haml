@@ -3,19 +3,25 @@
     .col-sm-12
       %h1
         All Exams
-        %small= link_to "Create new", new_exam_path
+        - @role = (User.where(:id=>session[:user_id]).select(:role).take.role if session[:user_id])
+        - if @role == "admin" ||@role == "teacher"
+
+          %small= link_to "Create new", new_exam_path
 
       %table.table
         %thead
           %tr
             %th Title
             %th # of Questions
-            %th Actions
+            
         %tbody
           - @exams.each do |exam|
             %tr
               %td= link_to exam.title, exam_path(exam)
               %td= exam.questions.count
-              %td
-                = link_to "Edit", edit_exam_path(exam)
-                = link_to "Delete", exam_path(exam), method: :delete
+              - @role = (User.where(:id=>session[:user_id]).select(:role).take.role if session[:user_id])
+              - if @role == "admin" ||@role == "teacher"
+
+                %td
+                  = link_to "Edit", edit_exam_path(exam)
+                  = link_to "Delete", exam_path(exam), method: :delete

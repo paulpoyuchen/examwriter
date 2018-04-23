@@ -3,19 +3,26 @@
     .col-sm-12
       %h1
         All Questions
-        %small= link_to "Create new", new_question_path
+        - @role = (User.where(:id=>session[:user_id]).select(:role).take.role if session[:user_id])
+        - if @role == "admin" || @role == "teacher"
+
+          %small= link_to "Create new", new_question_path
+
 
       %table.table
         %thead
           %tr
             %th Prompt
             %th Kind
-            %th Actions
+
         %tbody
           - @questions.each do |question|
+
             %tr
               %td= question.prompt
               %td= question.kind
-              %td
-                = link_to "Edit", edit_question_path(question)
-                = link_to "Delete", question_path(question), method: :delete
+              - @role = (User.where(:id=>session[:user_id]).select(:role).take.role if session[:user_id])
+              - if @role == "admin" || @role == "teacher"
+                %td
+                  = link_to "Edit", edit_question_path(question)
+                  = link_to "Delete", question_path(question), method: :delete
